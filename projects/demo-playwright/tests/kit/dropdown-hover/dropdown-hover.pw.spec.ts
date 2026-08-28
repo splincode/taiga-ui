@@ -80,17 +80,20 @@ test.describe('DropdownHover', () => {
                 await expect(page.locator('tui-sheet-dialog')).not.toBeAttached();
             });
 
-            test.skip('Opens mobile version of dropdown on the 2nd time click', async ({
-                page,
-            }) => {
-                await example.locator('button').click();
-                await page.locator('tui-sheet-dialog').click({position: {x: 32, y: 32}});
-                await example.locator('button').click();
-                await expect(page.locator('tui-sheet-dialog')).toBeVisible();
-                await po.hideContent();
-                await expect
-                    .soft(page)
-                    .toHaveScreenshot('mobile-dropdown-2nd-time-time-click.png');
+            test('Reopens mobile version of dropdown after closing', async ({page}) => {
+                const button = example.locator('button');
+                const dropdown = page.locator('tui-dropdown');
+                const sheet = page.locator('tui-sheet-dialog');
+
+                await button.click();
+                await expect(sheet).toBeVisible();
+
+                await sheet.click({position: {x: 32, y: 32}});
+                await expect(sheet).not.toBeAttached();
+
+                await button.click();
+                await expect(dropdown).not.toBeAttached();
+                await expect(sheet).toBeVisible();
             });
         });
     });
