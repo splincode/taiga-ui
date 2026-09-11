@@ -45,7 +45,12 @@ import {
 } from '@taiga-ui/core/directives/dropdown';
 import {TuiWithIcons} from '@taiga-ui/core/directives/icons';
 import {TuiWithItemsHandlers} from '@taiga-ui/core/directives/items-handlers';
-import {TUI_AUXILIARY, TUI_CLEAR_WORD, TUI_COMMON_ICONS} from '@taiga-ui/core/tokens';
+import {
+    TUI_AUXILIARY,
+    TUI_CLEAR_WORD,
+    TUI_COMMON_ICONS,
+    TUI_TEXTFIELD_VALUE,
+} from '@taiga-ui/core/tokens';
 import {type TuiSizeL, type TuiSizeS} from '@taiga-ui/core/types';
 import {type PolymorpheusContent, PolymorpheusOutlet} from '@taiga-ui/polymorpheus';
 import {ReplaySubject, startWith, switchMap, take} from 'rxjs';
@@ -238,6 +243,10 @@ export class TuiTextfieldBaseComponent<T>
     providers: [
         tuiButtonOptionsProvider({size: 'xs', appearance: 'icon'}),
         tuiAsDataListHost(TuiTextfieldComponent),
+        {
+            provide: TUI_TEXTFIELD_VALUE,
+            useFactory: () => inject(TuiTextfieldComponent).value,
+        },
     ],
     hostDirectives: [
         TuiDropdownDirective,
