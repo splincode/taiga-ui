@@ -94,6 +94,17 @@ describe('TuiInputDateRangeDirective', () => {
         expect(control.value?.daySame(range)).toBe(true);
     });
 
+    it('does not update value during destroy', () => {
+        const calendar = getCalendar();
+        const valueSetSpy = jest.spyOn(calendar.value, 'set');
+
+        calendar['onDayClick'](new TuiDay(2025, 0, 1));
+        valueSetSpy.mockClear();
+        calendar.ngOnDestroy();
+
+        expect(valueSetSpy).not.toHaveBeenCalled();
+    });
+
     function getCalendar(): TuiCalendarRange {
         return fixture.debugElement.query(By.directive(TuiCalendarRange))
             .componentInstance;
