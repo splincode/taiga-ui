@@ -3,22 +3,19 @@ import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {RANGE_SEPARATOR_CHAR, TuiDay, TuiDayRange} from '@taiga-ui/cdk';
-import {provideTaiga, TuiDropdownOpen, TuiRoot} from '@taiga-ui/core';
 import {TuiCalendarRange, TuiInputDateRange} from '@taiga-ui/kit';
 
 describe('TuiInputDateRangeDirective', () => {
     @Component({
-        imports: [ReactiveFormsModule, TuiInputDateRange, TuiRoot],
+        imports: [ReactiveFormsModule, TuiInputDateRange],
         template: `
-            <tui-root>
-                <tui-textfield>
-                    <input
-                        tuiInputDateRange
-                        [formControl]="control"
-                    />
-                    <tui-calendar-range *tuiDropdown />
-                </tui-textfield>
-            </tui-root>
+            <tui-textfield>
+                <input
+                    tuiInputDateRange
+                    [formControl]="control"
+                />
+                <tui-calendar-range />
+            </tui-textfield>
         `,
         changeDetection: ChangeDetectionStrategy.OnPush,
     })
@@ -40,10 +37,7 @@ describe('TuiInputDateRangeDirective', () => {
     let control: FormControl<TuiDayRange | null>;
 
     beforeEach(async () => {
-        TestBed.configureTestingModule({
-            imports: [Test],
-            providers: [provideTaiga()],
-        });
+        TestBed.configureTestingModule({imports: [Test]});
         await TestBed.compileComponents();
         fixture = TestBed.createComponent(Test);
         testComponent = fixture.componentInstance;
@@ -80,10 +74,9 @@ describe('TuiInputDateRangeDirective', () => {
     it('moves caret to the end after selecting first day in empty input', () => {
         const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
         const day = new TuiDay(2025, 0, 1);
-        const calendar = openCalendar();
 
         input.focus();
-        calendar['onDayClick'](day);
+        getCalendar()['onDayClick'](day);
         fixture.detectChanges();
 
         expect(input.value).toBe(`01.01.2025${RANGE_SEPARATOR_CHAR}`);
@@ -93,7 +86,7 @@ describe('TuiInputDateRangeDirective', () => {
     it('commits unfinished single-day range synchronously on destroy', () => {
         const day = new TuiDay(2025, 0, 1);
         const range = new TuiDayRange(day, day);
-        const calendar = openCalendar();
+        const calendar = getCalendar();
 
         calendar['onDayClick'](day);
         calendar.ngOnDestroy();
@@ -101,35 +94,16 @@ describe('TuiInputDateRangeDirective', () => {
         expect(control.value?.daySame(range)).toBe(true);
     });
 
-    it('does not warn about destroyed OutputRef when dropdown calendar is destroyed', () => {
-        const dropdown = getDropdown();
-        const calendar = openCalendar();
-        const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    it('does not update value during destroy', () => {
+        const calendar = getCalendar();
+        const valueSetSpy = jest.spyOn(calendar.value, 'set');
 
-        try {
-            calendar['onDayClick'](new TuiDay(2025, 0, 1));
-            dropdown.toggle(false);
+        calendar['onDayClick'](new TuiDay(2025, 0, 1));
+        valueSetSpy.mockClear();
+        calendar.ngOnDestroy();
 
-            expect(warnSpy).not.toHaveBeenCalledWith(
-                expect.stringContaining('Unexpected emit for destroyed `OutputRef`'),
-            );
-        } finally {
-            warnSpy.mockRestore();
-        }
+        expect(valueSetSpy).not.toHaveBeenCalled();
     });
-
-    function getDropdown(): TuiDropdownOpen {
-        return fixture.debugElement
-            .query(By.css('tui-textfield'))
-            .injector.get(TuiDropdownOpen);
-    }
-
-    function openCalendar(): TuiCalendarRange {
-        getDropdown().toggle(true);
-        fixture.detectChanges();
-
-        return getCalendar();
-    }
 
     function getCalendar(): TuiCalendarRange {
         return fixture.debugElement.query(By.directive(TuiCalendarRange))
