@@ -3,24 +3,28 @@ import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {RANGE_SEPARATOR_CHAR, TuiDay, TuiDayRange} from '@taiga-ui/cdk';
+import {provideTaiga, TuiRoot} from '@taiga-ui/core';
 import {TuiCalendarRange, TuiInputDateRange} from '@taiga-ui/kit';
 
 describe('TuiInputDateRangeDirective', () => {
     @Component({
-        imports: [ReactiveFormsModule, TuiInputDateRange],
+        imports: [ReactiveFormsModule, TuiInputDateRange, TuiRoot],
         template: `
-            <tui-textfield>
-                <input
-                    tuiInputDateRange
-                    [formControl]="control"
-                />
-                <tui-calendar-range />
-            </tui-textfield>
+            <tui-root>
+                <tui-textfield [(open)]="open">
+                    <input
+                        tuiInputDateRange
+                        [formControl]="control"
+                    />
+                    <tui-calendar-range *tuiDropdown />
+                </tui-textfield>
+            </tui-root>
         `,
         changeDetection: ChangeDetectionStrategy.OnPush,
     })
     class Test {
         public syncRuns = 0;
+        public readonly open = signal(false);
         public readonly range = signal<TuiDayRange | null>(null);
         public readonly control = new FormControl<TuiDayRange | null>(null);
 
@@ -37,7 +41,10 @@ describe('TuiInputDateRangeDirective', () => {
     let control: FormControl<TuiDayRange | null>;
 
     beforeEach(async () => {
-        TestBed.configureTestingModule({imports: [Test]});
+        TestBed.configureTestingModule({
+            imports: [Test],
+            providers: [provideTaiga()],
+        });
         await TestBed.compileComponents();
         fixture = TestBed.createComponent(Test);
         testComponent = fixture.componentInstance;
@@ -75,6 +82,8 @@ describe('TuiInputDateRangeDirective', () => {
         const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
         const day = new TuiDay(2025, 0, 1);
 
+        testComponent.open.set(true);
+        fixture.detectChanges();
         input.focus();
         getCalendar()['onDayClick'](day);
         fixture.detectChanges();
@@ -86,6 +95,10 @@ describe('TuiInputDateRangeDirective', () => {
     it('commits unfinished single-day range synchronously on destroy', () => {
         const day = new TuiDay(2025, 0, 1);
         const range = new TuiDayRange(day, day);
+
+        testComponent.open.set(true);
+        fixture.detectChanges();
+
         const calendar = getCalendar();
 
         calendar['onDayClick'](day);
@@ -94,12 +107,16 @@ describe('TuiInputDateRangeDirective', () => {
         expect(control.value?.daySame(range)).toBe(true);
     });
 
-    it('does not warn about destroyed OutputRef when calendar is destroyed', () => {
+    it('does not warn about destroyed OutputRef when dropdown calendar is destroyed', () => {
         const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+        testComponent.open.set(true);
+        fixture.detectChanges();
 
         try {
             getCalendar()['onDayClick'](new TuiDay(2025, 0, 1));
-            fixture.destroy();
+            testComponent.open.set(false);
+            fixture.detectChanges();
 
             expect(warnSpy).not.toHaveBeenCalledWith(
                 expect.stringContaining('Unexpected emit for destroyed `OutputRef`'),
