@@ -94,6 +94,21 @@ describe('TuiInputDateRangeDirective', () => {
         expect(control.value?.daySame(range)).toBe(true);
     });
 
+    it('does not warn about destroyed OutputRef when calendar is destroyed', () => {
+        const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+        try {
+            getCalendar()['onDayClick'](new TuiDay(2025, 0, 1));
+            fixture.destroy();
+
+            expect(warnSpy).not.toHaveBeenCalledWith(
+                expect.stringContaining('Unexpected emit for destroyed `OutputRef`'),
+            );
+        } finally {
+            warnSpy.mockRestore();
+        }
+    });
+
     function getCalendar(): TuiCalendarRange {
         return fixture.debugElement.query(By.directive(TuiCalendarRange))
             .componentInstance;
