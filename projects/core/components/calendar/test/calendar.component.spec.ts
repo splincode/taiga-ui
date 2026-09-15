@@ -145,6 +145,16 @@ describe('Calendar', () => {
         expect(testComponent.dayClick).toHaveBeenCalledWith(day);
     });
 
+    it('does not update value after day click destroys calendar', () => {
+        const day = TuiDay.currentLocal();
+        const valueSetSpy = jest.spyOn(component.value, 'set');
+
+        testComponent.dayClick = () => fixture.destroy();
+        component.onDayClick(day);
+
+        expect(valueSetSpy).not.toHaveBeenCalled();
+    });
+
     it('right button should not toggle after max value', async () => {
         const calendar = await loader.getHarness(
             TuiCalendarHarness.with({selector: '#max-case'}),
