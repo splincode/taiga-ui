@@ -21,6 +21,15 @@ test.describe('Textarea', () => {
         await expect.soft(textarea).toHaveScreenshot('textarea-line-break-disabled.png');
     });
 
+    test('row limits work with the minRows and maxRows inputs', async ({page}) => {
+        await tuiGoto(page, `${DemoRoute.Textarea}/API?minRows=2&maxRows=4`);
+        const {demo} = new TuiDocumentationPagePO(page);
+        const content = demo.locator('tui-textarea-content');
+
+        await expect(content).toHaveAttribute('style', /min-height: 2\.5em/);
+        await expect(content).toHaveAttribute('style', /max-height: 5em/);
+    });
+
     test('does not have excessive end padding without content', async ({page}) => {
         await tuiGoto(page, `${DemoRoute.Textarea}/API`);
         const {demo} = new TuiDocumentationPagePO(page);

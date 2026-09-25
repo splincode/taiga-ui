@@ -7,7 +7,15 @@
         <code>Textarea</code>
         uses
         <code>Textfield</code>
-        to create a multi-line string input.
+        to create a multi-line string input. When using Signal Forms, set the textarea height with
+        <code>[minRows]</code>
+        and
+        <code>[maxRows]</code>
+        . Signal Forms reserves
+        <code>[min]</code>
+        and
+        <code>[max]</code>
+        for field validation.
 
         @for (example of examples; track example) {
             <tui-doc-example
@@ -70,8 +78,8 @@
                         placeholder="Placeholder"
                         tuiTextarea
                         [formControl]="control"
-                        [max]="max"
-                        [min]="min"
+                        [maxRows]="maxRows"
+                        [minRows]="minRows"
                         [readonly]="controlDoc.readonly"
                         [tuiDisabled]="controlDoc.disabled"
                     ></textarea>
@@ -81,18 +89,18 @@
         <table tuiDocAPI>
             <tbody>
                 <tr
-                    name="[min]"
+                    name="[minRows]"
                     tuiDocAPIItem
                     type="number"
-                    [(value)]="min"
+                    [(value)]="minRows"
                 >
                     minimum number of rows in height
                 </tr>
                 <tr
-                    name="[max]"
+                    name="[maxRows]"
                     tuiDocAPIItem
                     type="number"
-                    [(value)]="max"
+                    [(value)]="maxRows"
                 >
                     maximum number of rows before scroll appears
                 </tr>

@@ -1,5 +1,6 @@
 import {
     type ComponentRef,
+    computed,
     Directive,
     inject,
     INJECTOR,
@@ -35,7 +36,7 @@ export class TuiTextareaComponent implements OnInit {
     /**
      * TODO(v6): check https://github.com/angular/angular/issues/70600 status:
      * - Solved? Drop `string | undefined` workaround and `transform`
-     * - Not yet? Rename props to `minRows`
+     * - Not yet? Keep for backwards compatibility with existing templates
      */
     public readonly min = input<number, number | string | undefined>(this.options.min, {
         transform: (min) => (typeof min === 'number' ? min : this.options.min),
@@ -44,12 +45,16 @@ export class TuiTextareaComponent implements OnInit {
     /**
      * TODO(v6): check https://github.com/angular/angular/issues/70600 status:
      * - Solved? Drop `string | undefined` workaround and `transform`
-     * - Not yet? Rename props to `maxRows`
+     * - Not yet? Keep for backwards compatibility with existing templates
      */
     public readonly max = input<number, number | string | undefined>(this.options.max, {
         transform: (max) => (typeof max === 'number' ? max : this.options.max),
     });
 
+    public readonly minRows = input<number>();
+    public readonly maxRows = input<number>();
+    public readonly effectiveMinRows = computed(() => this.minRows() ?? this.min());
+    public readonly effectiveMaxRows = computed(() => this.maxRows() ?? this.max());
     public readonly content = input(this.options.content);
     public readonly el = tuiInjectElement<HTMLTextAreaElement>();
 
