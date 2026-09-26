@@ -1,0 +1,27 @@
+name: Temporary Prettier 14915
+
+on:
+  push:
+    branches:
+      - tmp/prettier-14915
+
+permissions:
+  contents: read
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Format target file
+        run: |
+          npx prettier projects/addon-mobile/directives/dropdown-sheet/dropdown-sheet.component.ts --write
+          echo "===== DIFF ====="
+          git diff -- projects/addon-mobile/directives/dropdown-sheet/dropdown-sheet.component.ts
+          echo "===== FILE ====="
+          cat projects/addon-mobile/directives/dropdown-sheet/dropdown-sheet.component.ts
