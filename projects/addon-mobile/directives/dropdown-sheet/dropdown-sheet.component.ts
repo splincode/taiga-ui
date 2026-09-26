@@ -9,10 +9,7 @@ import {takeUntilDestroyed, toObservable} from '@angular/core/rxjs-interop';
 import {TuiSheetDialogService} from '@taiga-ui/addon-mobile/components/sheet-dialog';
 import {tuiIfMap} from '@taiga-ui/cdk/observables';
 import {tuiSetSignal} from '@taiga-ui/cdk/utils/miscellaneous';
-import {
-    TuiDropdownDirective,
-    TuiDropdownOpen,
-} from '@taiga-ui/core/portals/dropdown';
+import {TuiDropdownDirective, TuiDropdownOpen} from '@taiga-ui/core/portals/dropdown';
 import {PolymorpheusOutlet} from '@taiga-ui/polymorpheus';
 import {finalize} from 'rxjs';
 
