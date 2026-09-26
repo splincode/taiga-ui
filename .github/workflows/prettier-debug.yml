@@ -17,4 +17,5 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npx prettier projects/demo-playwright/tests/experimental/scroll-wheel/scroll-wheel.pw.spec.ts --write
+      - run: npx eslint projects/demo-playwright/tests/experimental/scroll-wheel/scroll-wheel.pw.spec.ts
       - run: git diff -- projects/demo-playwright/tests/experimental/scroll-wheel/scroll-wheel.pw.spec.ts
