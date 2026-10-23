@@ -9,6 +9,7 @@ export * from './calendar-spin.harness';
 export * from './calendar-year.harness';
 export * from './dialog.harness';
 export * from './dropdown-open.harness';
+export * from './input.harness';
 export * from './link.harness';
 export * from './loader.harness';
 export * from './radio.harness';
