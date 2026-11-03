@@ -232,6 +232,17 @@ test.describe('Dropdown', () => {
         await example.scrollIntoViewIfNeeded();
         await example.locator('button').click();
 
+        const exchangeRates = page.getByRole('option', {name: 'Exchange Rates:'});
+        const dropdowns = page.locator(TUI_DROPDOWN_LOCATORS.HOST);
+
+        await page.getByRole('option', {name: '💰 Money:'}).hover();
+        await expect(exchangeRates).toBeVisible();
+
+        await exchangeRates.hover();
+        await expect(exchangeRates).toBeFocused();
+        await expect(dropdowns).toHaveCount(3);
+        await expect(dropdowns.nth(2)).toBeVisible();
+
         await expect.soft(page).toHaveScreenshot('19-dropdown-sided-nested.png');
     });
 
@@ -329,6 +340,17 @@ test.describe('Dropdown', () => {
 
             await example.scrollIntoViewIfNeeded();
             await example.locator('button').click();
+
+            const exchangeRates = page.getByRole('option', {name: 'Exchange Rates:'});
+            const dropdowns = page.locator(TUI_DROPDOWN_LOCATORS.HOST);
+
+            await page.getByRole('option', {name: '💰 Money:'}).hover();
+            await expect(exchangeRates).toBeVisible();
+
+            await exchangeRates.hover();
+            await expect(exchangeRates).toBeFocused();
+            await expect(dropdowns).toHaveCount(3);
+            await expect(dropdowns.nth(2)).toBeVisible();
 
             await expect
                 .soft(page)
