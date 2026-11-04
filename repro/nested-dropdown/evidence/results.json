@@ -1,0 +1,41 @@
+{
+    "date": "2026-11-04",
+    "sourceParent": "9adad073277508b15d9f8ffb185f5051b561f68e",
+    "playwright": "1.64.1",
+    "platform": "Linux x64 headless",
+    "viewport": {
+        "width": 1500,
+        "height": 900
+    },
+    "deviceScaleFactor": 2,
+    "reducedMotion": "reduce",
+    "repeatsPerMode": 3,
+    "stable": {
+        "version": "157.0.8103.38",
+        "native": {
+            "screenshotMismatch": 1,
+            "rendererCrash": 2,
+            "passed": 0
+        },
+        "js": {
+            "passed": 3
+        }
+    },
+    "canary": {
+        "version": "159.0.8141.0",
+        "native": {
+            "screenshotMismatch": 1,
+            "rendererCrash": 1,
+            "passed": 1
+        },
+        "js": {
+            "passed": 3
+        }
+    },
+    "limitations": [
+        "Repository demo reproduction, not standalone CSS",
+        "Headed/manual reproduction unverified",
+        "Renderer crashes not attributed to missing-panel bug",
+        "Shared root cause with Chromium 581484644 unverified"
+    ]
+}
