@@ -5,6 +5,63 @@ import {expect, test} from '@playwright/test';
 test.describe('Textarea', () => {
     test.use({viewport: {width: 400, height: 500}});
 
+    test('only shows a scrollbar in a dialog when the textarea overflows', async ({
+        page,
+    }) => {
+        await tuiGoto(page, DemoRoute.Textarea);
+        await new TuiDocumentationPagePO(page)
+            .getExample('#dialog')
+            .getByRole('button', {name: 'Show dialog'})
+            .click();
+
+        const dialog = page.locator('tui-dialog');
+        const textarea = dialog.locator('textarea[tuiTextarea]');
+        const vertical = dialog.locator('.t-bar_vertical .t-thumb');
+        const horizontal = dialog.locator('.t-bar_horizontal .t-thumb');
+        const opacity = async (locator: typeof vertical): Promise<number> =>
+            locator.evaluateAll((elements) =>
+                Math.max(
+                    0,
+                    ...elements.map((element) =>
+                        Number(getComputedStyle(element).opacity),
+                    ),
+                ),
+            );
+
+        await expect(textarea).toBeVisible();
+        await expect.poll(async () => opacity(vertical)).toBe(0);
+        await expect.poll(async () => opacity(horizontal)).toBe(0);
+
+        await textarea.fill('A line of text\n'.repeat(20));
+
+        await expect.poll(async () => opacity(vertical)).toBeGreaterThan(0);
+        await expect.poll(async () => opacity(horizontal)).toBe(0);
+        await textarea.evaluate((element) => element.scrollTo({top: 0}));
+        await expect
+            .poll(async () =>
+                vertical.evaluate((element) => (element as HTMLElement).offsetTop),
+            )
+            .toBe(0);
+
+        await textarea.evaluate((element) =>
+            element.scrollTo({top: element.scrollHeight}),
+        );
+        await expect
+            .poll(async () => textarea.evaluate((element) => element.scrollTop))
+            .toBeGreaterThan(0);
+
+        await expect
+            .poll(async () =>
+                vertical.evaluate((element) => (element as HTMLElement).offsetTop),
+            )
+            .toBeGreaterThan(0);
+
+        await textarea.clear();
+
+        await expect.poll(async () => opacity(vertical)).toBe(0);
+        await expect.poll(async () => opacity(horizontal)).toBe(0);
+    });
+
     test('line break text', async ({page, browserName}) => {
         test.skip(browserName !== 'chromium', 'Font flaky');
 
