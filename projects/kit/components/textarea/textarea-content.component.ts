@@ -13,7 +13,6 @@ import {
     TuiScrollRef,
 } from '@taiga-ui/core/components/scrollbar';
 import {TuiTextfieldComponent} from '@taiga-ui/core/components/textfield';
-import {TUI_TIMELINE_SUPPORT} from '@taiga-ui/core/tokens';
 import {PolymorpheusOutlet} from '@taiga-ui/polymorpheus';
 
 import {TuiTextareaComponent} from './textarea.component';
@@ -30,8 +29,6 @@ import {TuiTextareaComponent} from './textarea.component';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     viewProviders: [
-        // The scrollable textarea is a sibling, so controls must use its actual dimensions.
-        {provide: TUI_TIMELINE_SUPPORT, useValue: false},
         {
             provide: TUI_SCROLL_REF,
             useFactory: () => new ElementRef(inject(TuiTextareaComponent).el),

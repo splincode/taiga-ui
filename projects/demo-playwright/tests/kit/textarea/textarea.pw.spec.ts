@@ -16,8 +16,9 @@ test.describe('Textarea', () => {
 
         const dialog = page.locator('tui-dialog');
         const textarea = dialog.locator('textarea[tuiTextarea]');
-        const vertical = dialog.locator('.t-bar_vertical .t-thumb');
-        const horizontal = dialog.locator('.t-bar_horizontal .t-thumb');
+        const controls = dialog.locator('tui-textarea-content tui-scroll-controls');
+        const vertical = controls.locator('.t-bar_vertical .t-thumb');
+        const horizontal = controls.locator('.t-bar_horizontal .t-thumb');
         const opacity = async (locator: typeof vertical): Promise<number> =>
             locator.evaluateAll((elements) =>
                 Math.max(
@@ -29,6 +30,16 @@ test.describe('Textarea', () => {
             );
 
         await expect(textarea).toBeVisible();
+
+        expect(
+            await controls.evaluate((element) => element.classList.contains('_timeline')),
+        ).toBe(await page.evaluate(() => CSS.supports('animation-timeline', '--name')));
+
+        await expect.poll(async () => opacity(vertical)).toBe(0);
+        await expect.poll(async () => opacity(horizontal)).toBe(0);
+
+        await textarea.fill('A line of text');
+
         await expect.poll(async () => opacity(vertical)).toBe(0);
         await expect.poll(async () => opacity(horizontal)).toBe(0);
 
