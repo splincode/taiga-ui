@@ -67,6 +67,33 @@ test.describe('Textarea', () => {
             )
             .toBeGreaterThan(0);
 
+        await textarea.evaluate((element) => element.scrollTo({top: 0}));
+        await expect
+            .poll(async () =>
+                vertical.evaluate((element) => (element as HTMLElement).offsetTop),
+            )
+            .toBe(0);
+        await dialog.evaluate((element) => {
+            const filler = document.createElement('div');
+
+            filler.style.blockSize = '1000px';
+            element.append(filler);
+        });
+
+        const dialogScroll = dialog.locator('..');
+
+        await dialogScroll.evaluate((element) =>
+            element.scrollTo({top: element.scrollHeight, behavior: 'instant'}),
+        );
+        await expect
+            .poll(async () => dialogScroll.evaluate((element) => element.scrollTop))
+            .toBeGreaterThan(0);
+        await expect
+            .poll(async () =>
+                vertical.evaluate((element) => (element as HTMLElement).offsetTop),
+            )
+            .toBe(0);
+
         await textarea.clear();
 
         await expect.poll(async () => opacity(vertical)).toBe(0);
