@@ -1,0 +1,146 @@
+[
+  {
+    "browser": "chromium",
+    "version": "151.0.7922.34",
+    "minimal": {
+      "opacity": 0,
+      "timeline": "ScrollTimeline",
+      "source": "source",
+      "subject": null,
+      "progress": null
+    },
+    "initial": {
+      "original-indicator": {
+        "opacity": 0,
+        "timeline": "ScrollTimeline",
+        "source": "original-source",
+        "subject": null,
+        "progress": null
+      },
+      "fixed-indicator": {
+        "opacity": 0,
+        "timeline": "ScrollTimeline",
+        "source": "fixed-source",
+        "subject": null,
+        "progress": null
+      },
+      "delegated-indicator": {
+        "opacity": 1,
+        "timeline": "ScrollTimeline",
+        "source": "delegated-source",
+        "subject": null,
+        "progress": 0
+      },
+      "removed-indicator": {
+        "opacity": 1,
+        "timeline": null,
+        "source": null,
+        "subject": null,
+        "progress": 1
+      }
+    },
+    "scrolled": {
+      "fixed": {
+        "opacity": 1,
+        "timeline": "ScrollTimeline",
+        "source": "fixed-source",
+        "subject": null,
+        "progress": 0.5011933174224344
+      },
+      "delegated": {
+        "opacity": 1,
+        "timeline": "ScrollTimeline",
+        "source": "delegated-source",
+        "subject": null,
+        "progress": 0.5
+      },
+      "parent": {
+        "opacity": 1,
+        "timeline": "ScrollTimeline",
+        "source": "fixed-outer",
+        "subject": null,
+        "progress": 0
+      }
+    },
+    "afterParentScroll": {
+      "opacity": 1,
+      "timeline": "ScrollTimeline",
+      "source": "fixed-source",
+      "subject": null,
+      "progress": 0.5011933174224344
+    },
+    "passed": true
+  },
+  {
+    "browser": "webkit",
+    "version": "26.5",
+    "minimal": {
+      "opacity": 1,
+      "timeline": "ViewTimeline",
+      "source": "source",
+      "subject": "ghost",
+      "progress": 0.675
+    },
+    "initial": {
+      "original-indicator": {
+        "opacity": 1,
+        "timeline": "ViewTimeline",
+        "source": "original-source",
+        "subject": "content",
+        "progress": 0.675
+      },
+      "fixed-indicator": {
+        "opacity": 0,
+        "timeline": "ScrollTimeline",
+        "source": "fixed-source",
+        "subject": null,
+        "progress": null
+      },
+      "delegated-indicator": {
+        "opacity": 1,
+        "timeline": "ScrollTimeline",
+        "source": "delegated-source",
+        "subject": null,
+        "progress": 0
+      },
+      "removed-indicator": {
+        "opacity": 1,
+        "timeline": null,
+        "source": null,
+        "subject": null,
+        "progress": 1
+      }
+    },
+    "scrolled": {
+      "fixed": {
+        "opacity": 1,
+        "timeline": "ScrollTimeline",
+        "source": "fixed-source",
+        "subject": null,
+        "progress": 0.49880668640136716
+      },
+      "delegated": {
+        "opacity": 1,
+        "timeline": "ScrollTimeline",
+        "source": "delegated-source",
+        "subject": null,
+        "progress": 0.5
+      },
+      "parent": {
+        "opacity": 1,
+        "timeline": "ScrollTimeline",
+        "source": "fixed-outer",
+        "subject": null,
+        "progress": 0
+      }
+    },
+    "afterParentScroll": {
+      "opacity": 1,
+      "timeline": "ScrollTimeline",
+      "source": "fixed-source",
+      "subject": null,
+      "progress": 0.49880668640136716
+    },
+    "passed": true
+  }
+]

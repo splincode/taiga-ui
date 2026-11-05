@@ -1,0 +1,11 @@
+{
+  "name": "textarea-timeline-repro",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify": "node verify.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

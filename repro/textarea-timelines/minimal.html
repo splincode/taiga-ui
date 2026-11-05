@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Nested timeline scope reduction</title>
+<style>
+    .outer, .inner {
+        timeline-scope: --scrollbar;
+        scroll-timeline: --scrollbar y;
+        overflow: auto;
+        height: 200px;
+    }
+    .inner { height: 100px; }
+    .ghost { height: 20px; view-timeline: --scrollbar y; }
+    .indicator {
+        opacity: 0;
+        animation: active linear both;
+        animation-timeline: --scrollbar;
+    }
+    @keyframes active { from, to { opacity: 1; } }
+</style>
+<p>The indicator should be hidden: the inner source does not overflow.</p>
+<div class="outer">
+    <div class="inner" id="source">
+        <span class="indicator" id="indicator">Unexpected active timeline</span>
+        <div class="ghost"></div>
+    </div>
+</div>

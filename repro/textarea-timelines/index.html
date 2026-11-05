@@ -1,0 +1,135 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Nested scrollbar timeline scopes</title>
+<style>
+  body {
+    font: 16px system-ui;
+    max-width: 900px;
+    margin: 2rem auto;
+  }
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  section {
+    border: 1px solid #999;
+    padding: 1rem;
+  }
+  .outer {
+    timeline-scope: --scrollbar;
+    scroll-timeline: --scrollbar y;
+    height: 180px;
+    overflow: auto;
+    border: 1px solid #aaa;
+  }
+  .source {
+    timeline-scope: --scrollbar;
+    scroll-timeline: --scrollbar y;
+    height: 100px;
+    overflow: auto;
+    border: 1px solid #555;
+  }
+  .indicator {
+    display: block;
+    color: #b00020;
+    opacity: 0;
+    animation: active linear both;
+    animation-timeline: --scrollbar;
+  }
+  @keyframes active {
+    from,
+    to {
+      opacity: 1;
+    }
+  }
+  .content {
+    height: 20px;
+    view-timeline: --scrollbar y;
+  }
+  .filler {
+    height: 260px;
+  }
+  #overflow:checked ~ main .content {
+    height: 500px;
+  }
+  .fixed .source {
+    timeline-scope: --textarea;
+    scroll-timeline: --textarea y;
+  }
+  .fixed .source .indicator {
+    animation-timeline: --textarea;
+  }
+  .fixed .content {
+    view-timeline: none;
+  }
+  .delegated {
+    scroll-timeline: none;
+  }
+  .delegated .source {
+    timeline-scope: none;
+  }
+  .delegated .content {
+    height: 500px;
+    view-timeline: none;
+  }
+  .removed-scope {
+    timeline-scope: none;
+  }
+</style>
+<h1>Nested scrollbar timeline scopes</h1>
+<p>
+  No Angular or Taiga UI. The inner indicator must be hidden without overflow.
+  The fixed case keeps an explicit timeline scope, using a distinct name.
+</p>
+<input type="checkbox" id="overflow" />
+<label for="overflow">Make the nested sources overflow</label>
+<main>
+  <section>
+    <h2>Original shared names</h2>
+    <div class="outer" id="original-outer">
+      <div class="source" id="original-source">
+        <span class="indicator" id="original-indicator"
+          >Inner timeline active</span
+        >
+        <div class="content">Short content</div>
+      </div>
+      <div class="filler">Outer scroll area</div>
+    </div>
+  </section>
+  <section class="fixed">
+    <h2>Distinct name, scope retained</h2>
+    <div class="outer" id="fixed-outer">
+      <span class="indicator" id="fixed-outer-indicator"
+        >Outer timeline active</span
+      >
+      <div class="source" id="fixed-source">
+        <span class="indicator" id="fixed-indicator"
+          >Inner timeline active</span
+        >
+        <div class="content">Short content</div>
+      </div>
+      <div class="filler">Outer scroll area</div>
+    </div>
+  </section>
+  <section>
+    <h2>Delegated: scope retained</h2>
+    <div class="outer delegated" id="delegated-host">
+      <span class="indicator" id="delegated-indicator"
+        >Delegated timeline active</span
+      >
+      <div class="source" id="delegated-source">
+        <div class="content">Scroll this inner source</div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Delegated: scope removed</h2>
+    <div class="outer delegated removed-scope">
+      <span class="indicator" id="removed-indicator">Unresolved timeline</span>
+      <div class="source" id="removed-source">
+        <div class="content">Scroll this inner source</div>
+      </div>
+    </div>
+  </section>
+</main>
