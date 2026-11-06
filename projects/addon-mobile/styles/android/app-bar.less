@@ -1,28 +1,30 @@
-tui-app-bar {
-    font: var(--tui-typography-heading-h6);
-    block-size: 3.5rem;
+[data-platform='android'] {
+    tui-app-bar {
+        font: var(--tui-typography-heading-h6);
+        block-size: 3.5rem;
 
-    > .t-content {
-        position: static;
-        padding: 0 0 0 1rem;
-        text-align: start;
-        transform: none;
-        max-inline-size: calc(100% - var(--t-sides, 0px) / 2);
+        > .t-content {
+            position: static;
+            padding: 0 0 0 1rem;
+            text-align: start;
+            transform: none;
+            max-inline-size: calc(100% - var(--t-sides, 0px) / 2);
 
-        > * {
-            max-inline-size: calc(100% - var(--t-sides, 0px));
+            > * {
+                max-inline-size: calc(100% - var(--t-sides, 0px));
+            }
+
+            > [tuiProgressBar] {
+                .center-left();
+            }
         }
 
-        > [tuiProgressBar] {
-            .center-left();
+        [tuiSubtitle] {
+            font: var(--tui-typography-body-m);
         }
-    }
 
-    [tuiSubtitle] {
-        font: var(--tui-typography-body-m);
-    }
-
-    > :last-child [tuiIconButton] {
-        margin: 0 -0.25rem;
+        > :last-child [tuiIconButton] {
+            margin: 0 -0.25rem;
+        }
     }
 }

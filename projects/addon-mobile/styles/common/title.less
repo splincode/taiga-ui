@@ -1,13 +1,16 @@
-[tuiTitle] {
-    &:where(:not([data-size])) {
-        gap: 0.25rem;
+[data-platform='android'],
+[data-platform='ios'] {
+    [tuiTitle] {
+        &:where(:not([data-size])) {
+            gap: 0.25rem;
+        }
+
+        [tuiSubtitle] {
+            color: var(--tui-text-secondary);
+        }
     }
 
-    [tuiSubtitle] {
-        color: var(--tui-text-secondary);
+    [tuiNotification] [tuiTitle] [tuiSubtitle] {
+        color: var(--tui-text-primary);
     }
-}
-
-[tuiNotification] [tuiTitle] [tuiSubtitle] {
-    color: var(--tui-text-primary);
 }

@@ -1,15 +1,18 @@
-[tuiBadge] {
-    font-weight: 600;
-
-    &[data-size='s'] {
-        font-weight: bold;
-    }
-
-    &[data-size='xl'] {
-        --t-padding: 0.625rem;
-        --t-size: 1.75rem;
-
-        font: var(--tui-typography-ui-s);
+[data-platform='android'],
+[data-platform='ios'] {
+    [tuiBadge] {
         font-weight: 600;
+
+        &[data-size='s'] {
+            font-weight: bold;
+        }
+
+        &[data-size='xl'] {
+            --t-padding: 0.625rem;
+            --t-size: 1.75rem;
+
+            font: var(--tui-typography-ui-s);
+            font-weight: 600;
+        }
     }
 }

@@ -1,30 +1,33 @@
 @import '@taiga-ui/styles/utils.less';
 
-[tuiFile][data-orientation='horizontal']:has(> label:active) {
-    background: var(--tui-background-neutral-1);
-}
-
-[tuiFile][data-orientation='vertical'] {
-    .transition(scale, @tui-duration-fastest);
-
-    min-inline-size: 6rem;
-    max-inline-size: 10rem;
-
-    [tuiButtonX]::after {
-        position: absolute;
-        display: block;
-        inset-inline-end: -0.25rem;
-        inset-block-start: -0.25rem;
-        inline-size: 2.75rem;
-        block-size: 2.75rem;
-        opacity: 0;
+[data-platform='android'],
+[data-platform='ios'] {
+    [tuiFile][data-orientation='horizontal']:has(> label:active) {
+        background: var(--tui-background-neutral-1);
     }
 
-    [tuiSubtitle] {
-        font: var(--tui-typography-ui-s);
-    }
+    [tuiFile][data-orientation='vertical'] {
+        .transition(scale, @tui-duration-fastest);
 
-    &:has(> label:active) {
-        scale: 0.95;
+        min-inline-size: 6rem;
+        max-inline-size: 10rem;
+
+        [tuiButtonX]::after {
+            position: absolute;
+            display: block;
+            inset-inline-end: -0.25rem;
+            inset-block-start: -0.25rem;
+            inline-size: 2.75rem;
+            block-size: 2.75rem;
+            opacity: 0;
+        }
+
+        [tuiSubtitle] {
+            font: var(--tui-typography-ui-s);
+        }
+
+        &:has(> label:active) {
+            scale: 0.95;
+        }
     }
 }

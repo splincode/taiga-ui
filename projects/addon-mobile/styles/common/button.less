@@ -1,48 +1,51 @@
-[tuiCardLarge] > [tuiButton],
-[tuiCardLarge] > footer > [tuiButton] {
-    inline-size: 100%;
-}
-
-[tuiButton],
-[tuiIconButton] {
-    &[data-size='xs'],
-    &[data-size='s'],
-    &[data-size='l'] {
-        --t-radius: 1rem;
+[data-platform='android'],
+[data-platform='ios'] {
+    [tuiCardLarge] > [tuiButton],
+    [tuiCardLarge] > footer > [tuiButton] {
+        inline-size: 100%;
     }
 
-    &[data-size='s'] {
-        --t-size: 1.875rem;
-    }
+    [tuiButton],
+    [tuiIconButton] {
+        &[data-size='xs'],
+        &[data-size='s'],
+        &[data-size='l'] {
+            --t-radius: 1rem;
+        }
 
-    &[data-size='m'] {
-        --t-radius: 0.75rem;
-    }
+        &[data-size='s'] {
+            --t-size: 1.875rem;
+        }
 
-    &[data-size='l'] {
-        font: var(--tui-typography-body-l);
-        font-weight: bold;
-    }
+        &[data-size='m'] {
+            --t-radius: 0.75rem;
+        }
 
-    &[data-appearance^='primary'],
-    &[data-appearance^='secondary'],
-    &[data-appearance^='accent'],
-    &[data-appearance^='destructive'],
-    &[data-appearance^='opposite'],
-    &[data-appearance^='flat'] {
-        &:disabled:not(._loading),
-        &[data-state='disabled']:not(._loading) {
-            background: var(--tui-background-neutral-1);
-            color: var(--tui-text-tertiary);
-            opacity: 1;
+        &[data-size='l'] {
+            font: var(--tui-typography-body-l);
+            font-weight: bold;
+        }
 
-            &[data-appearance^='flat'] {
-                background: transparent;
+        &[data-appearance^='primary'],
+        &[data-appearance^='secondary'],
+        &[data-appearance^='accent'],
+        &[data-appearance^='destructive'],
+        &[data-appearance^='opposite'],
+        &[data-appearance^='flat'] {
+            &:disabled:not(._loading),
+            &[data-state='disabled']:not(._loading) {
+                background: var(--tui-background-neutral-1);
+                color: var(--tui-text-tertiary);
+                opacity: 1;
+
+                &[data-appearance^='flat'] {
+                    background: transparent;
+                }
             }
         }
     }
-}
 
-[tuiButton][tuiButtonVertical] {
-    gap: 0.5rem;
+    [tuiButton][tuiButtonVertical] {
+        gap: 0.5rem;
+    }
 }

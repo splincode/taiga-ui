@@ -1,100 +1,102 @@
 @import '@taiga-ui/styles/utils.less';
 
-input[tuiSwitch][switch] {
-    block-size: 1.9375rem;
-    inline-size: 3.1875rem;
-    appearance: auto;
-    accent-color: var(--tui-background-accent-2);
-
-    &:invalid {
-        accent-color: var(--tui-status-negative);
-    }
-
-    &::before,
-    &::after {
-        display: none;
-    }
-
-    @supports (anchor-name: --ios26) {
-        inline-size: 4rem;
-        block-size: 1.75rem;
-
-        &::before {
-            .transition(background);
-
-            position: absolute;
-            inset: 0;
-            display: block;
-            border-radius: 10rem;
-            inline-size: 100%;
-            background-color: transparent;
-            mix-blend-mode: color;
-            scale: 1;
-            transform: none;
-        }
-
-        &:invalid:not(:checked)::before {
-            background-color: var(--tui-status-negative);
-        }
-
-        [data-theme='dark'] & {
-            &:invalid:not(:checked)::before {
-                background-color: var(--tui-status-negative-pale);
-            }
-
-            &:disabled:not(:checked)::before {
-                background-color: rgba(255, 255, 255, 0.2);
-                mix-blend-mode: lighten;
-            }
-        }
-    }
-}
-
-input[tuiSwitch]:not([switch]) {
-    block-size: 1.9375rem;
-    inline-size: 3.1875rem;
-    border-radius: 2rem;
-    color: #fff;
-    background: var(--tui-background-neutral-2);
-    overflow: visible;
-
-    &::before {
-        opacity: 0;
-    }
-
-    &::after {
-        inset-inline-end: auto;
-        transition-property: transform, inline-size;
-        inline-size: 1.9375rem;
+[data-platform='ios'] {
+    input[tuiSwitch][switch] {
         block-size: 1.9375rem;
-        border-radius: 2rem;
-        background: currentColor;
-        scale: 0.871;
-        outline: none;
-        box-shadow:
-            0 0.25rem 0.125rem rgba(0, 0, 0, 0.06),
-            0 0.25rem 0.5rem rgba(0, 0, 0, 0.15) !important;
-    }
-
-    &:active::after {
-        inline-size: 2.3rem;
-    }
-
-    &:checked,
-    &:checked:hover,
-    &:checked:active {
-        background: var(--tui-background-accent-2);
+        inline-size: 3.1875rem;
+        appearance: auto;
+        accent-color: var(--tui-background-accent-2);
 
         &:invalid {
-            background: var(--tui-status-negative);
+            accent-color: var(--tui-status-negative);
+        }
+
+        &::before,
+        &::after {
+            display: none;
+        }
+
+        @supports (anchor-name: --ios26) {
+            inline-size: 4rem;
+            block-size: 1.75rem;
+
+            &::before {
+                .transition(background);
+
+                position: absolute;
+                inset: 0;
+                display: block;
+                border-radius: 10rem;
+                inline-size: 100%;
+                background-color: transparent;
+                mix-blend-mode: color;
+                scale: 1;
+                transform: none;
+            }
+
+            &:invalid:not(:checked)::before {
+                background-color: var(--tui-status-negative);
+            }
+
+            [data-theme='dark'] & {
+                &:invalid:not(:checked)::before {
+                    background-color: var(--tui-status-negative-pale);
+                }
+
+                &:disabled:not(:checked)::before {
+                    background-color: rgba(255, 255, 255, 0.2);
+                    mix-blend-mode: lighten;
+                }
+            }
+        }
+    }
+
+    input[tuiSwitch]:not([switch]) {
+        block-size: 1.9375rem;
+        inline-size: 3.1875rem;
+        border-radius: 2rem;
+        color: #fff;
+        background: var(--tui-background-neutral-2);
+        overflow: visible;
+
+        &::before {
+            opacity: 0;
         }
 
         &::after {
-            transform: translateX(calc(1.44rem * var(--tui-inline)));
+            inset-inline-end: auto;
+            transition-property: transform, inline-size;
+            inline-size: 1.9375rem;
+            block-size: 1.9375rem;
+            border-radius: 2rem;
+            background: currentColor;
+            scale: 0.871;
+            outline: none;
+            box-shadow:
+                0 0.25rem 0.125rem rgba(0, 0, 0, 0.06),
+                0 0.25rem 0.5rem rgba(0, 0, 0, 0.15) !important;
         }
 
         &:active::after {
-            transform: translateX(calc(1.0775rem * var(--tui-inline)));
+            inline-size: 2.3rem;
+        }
+
+        &:checked,
+        &:checked:hover,
+        &:checked:active {
+            background: var(--tui-background-accent-2);
+
+            &:invalid {
+                background: var(--tui-status-negative);
+            }
+
+            &::after {
+                transform: translateX(calc(1.44rem * var(--tui-inline)));
+            }
+
+            &:active::after {
+                transform: translateX(calc(1.0775rem * var(--tui-inline)));
+            }
         }
     }
 }

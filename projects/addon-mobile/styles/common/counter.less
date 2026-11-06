@@ -1,12 +1,15 @@
-tui-counter {
-    border-radius: 1rem;
+[data-platform='android'],
+[data-platform='ios'] {
+    tui-counter {
+        border-radius: 1rem;
 
-    &[data-size='m'] {
-        border-radius: 0.75rem;
-    }
+        &[data-size='m'] {
+            border-radius: 0.75rem;
+        }
 
-    &[data-size='s'],
-    &[data-size='xs'] {
-        border-radius: 2rem;
+        &[data-size='s'],
+        &[data-size='xs'] {
+            border-radius: 2rem;
+        }
     }
 }
