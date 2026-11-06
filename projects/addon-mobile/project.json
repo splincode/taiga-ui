@@ -14,10 +14,9 @@
                     "target": "build"
                 }
             ],
-            "executor": "@angular/build:ng-packagr",
+            "executor": "nx:run-commands",
             "options": {
-                "project": "{projectRoot}/ng-package.json",
-                "tsConfig": "tsconfig.build.json"
+                "command": "ts-node ./{projectRoot}/scripts/build.ts"
             },
             "outputs": ["{workspaceRoot}/dist/{projectName}"]
         },
