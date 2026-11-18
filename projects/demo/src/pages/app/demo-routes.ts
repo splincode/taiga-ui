@@ -172,6 +172,7 @@ export const DemoRoute = {
     ElasticSticky: '/directives/elastic-sticky',
     Element: '/directives/element',
     Highlight: '/directives/highlight',
+    HighlightExperimental: '/directives/highlight-experimental',
     Hint: '/directives/hint',
     HintDescribe: '/directives/hint-describe',
     HintManual: '/directives/hint-manual',

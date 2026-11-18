@@ -1,0 +1,8 @@
+:host {
+    display: block;
+}
+
+.sample {
+    max-inline-size: 22rem;
+    line-height: 1.5;
+}

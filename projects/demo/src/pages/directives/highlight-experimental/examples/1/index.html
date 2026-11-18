@@ -1,0 +1,16 @@
+<tui-textfield>
+    <input
+        tuiInput
+        [(ngModel)]="search"
+    />
+    <label tuiLabel>Search</label>
+</tui-textfield>
+
+<p
+    class="sample"
+    [tuiHighlight]="search"
+>
+    CSS Custom Highlights work with
+    <strong>inline elements</strong>
+    and text that wraps onto several lines. Change the search to see the highlight update.
+</p>

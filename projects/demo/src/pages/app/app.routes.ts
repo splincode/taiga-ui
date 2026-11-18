@@ -863,6 +863,11 @@ export const ROUTES: Routes = [
         title: 'Highlight',
     }),
     route({
+        path: DemoRoute.HighlightExperimental,
+        loadComponent: async () => import('../directives/highlight-experimental'),
+        title: 'HighlightExperimental',
+    }),
+    route({
         path: DemoRoute.Hint,
         loadComponent: async () => import('../directives/hint'),
         title: 'Hint',

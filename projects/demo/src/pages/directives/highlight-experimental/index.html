@@ -1,0 +1,32 @@
+<tui-doc-page
+    header="HighlightExperimental"
+    package="EXPERIMENTAL"
+    type="directives"
+>
+    <ng-template pageTab>
+        <p>
+            Experimental <code>TuiHighlight</code> based on the CSS Custom Highlight API.
+            It highlights the first matching text node without adding an overlay or measuring layout.
+        </p>
+
+        <div
+            appearance="warning"
+            tuiNotification
+        >
+            Requires CSS Custom Highlight API support. For older browsers, use
+            <code>TuiHighlight</code> from <code>@taiga-ui/kit</code>.
+        </div>
+
+        <tui-doc-example
+            heading="Search and inline content"
+            [component]="1 | tuiComponent"
+            [content]="1 | tuiExample"
+        />
+
+        <tui-doc-example
+            heading="Dynamic text and individual colors"
+            [component]="2 | tuiComponent"
+            [content]="2 | tuiExample"
+        />
+    </ng-template>
+</tui-doc-page>

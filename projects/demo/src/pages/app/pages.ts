@@ -1390,6 +1390,12 @@ export const pages: DocRoutePages = [
             },
             {
                 section: 'Tools',
+                title: 'HighlightExperimental',
+                keywords: 'поиск, подсветка, custom highlights, css, native, experimental',
+                route: DemoRoute.HighlightExperimental,
+            },
+            {
+                section: 'Tools',
                 title: 'Media',
                 keywords: 'player, video, audio, mp3, wav, html5, mp4, hd, 4k, dpi',
                 route: DemoRoute.Media,
